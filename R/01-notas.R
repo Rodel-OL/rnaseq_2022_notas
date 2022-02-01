@@ -1,0 +1,2 @@
+#ESTE FUE EL CODIGO QUE USAMOS PARA CREARLO
+usethis::use_r("01-notas.R")
