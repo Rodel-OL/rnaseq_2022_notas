@@ -104,6 +104,9 @@ colData(rse)
 ## Usar iSEE para explorar datos
  iSEE::iSEE(sce_layer)
 ## Ejercicio
-#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+## Busqueda en Row data table 1
+ MOBP<-ENSG00000168314
+ MBP <-ENSG00000197971
+ PCP4<-ENSG00000183036
 ## Sube el PDF
 ## RNAseq y recount3
