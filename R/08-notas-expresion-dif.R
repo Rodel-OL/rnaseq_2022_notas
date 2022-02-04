@@ -33,7 +33,10 @@ table(de_results$adj.P.Val < 0.05)
 plotMA(eb_results, coef = 2)
 
 volcanoplot(eb_results, coef = 2, highlight = 3, names = de_results$gene_name)
-
+## Coef<- porque es 2? porque perimitia seleccionar el coeficiente de la variable
+## de interes, seleccionar el referente. Mas de un coeficiente? si, pueden darse
+## varios, pendiente es diferente entre 2 grupos de datos?
+##
 de_results[de_results$gene_name %in% c("ZSCAN2", "VASH2", "KIAA0922"), ]
 
 ## Visualizando genes DE
