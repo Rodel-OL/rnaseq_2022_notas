@@ -10,6 +10,8 @@ mod <- model.matrix(~ prenatal + sra_attribute.RIN + sra_attribute.sex + assigne
 )
 colnames(mod)
 ## Porque da prenatalprenatal??
+## nombre de la variable. postnatal y prenatal, alfabeticamente va primero
+## postnatal
 ## Limma y edgeR usan la distribucion Binomial negativa
 library("limma")
 vGene <- voom(dge, mod, plot = TRUE)
