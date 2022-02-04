@@ -28,7 +28,7 @@ colData(rse_gene_SRP045638)[
   ,
   grepl("^sra_attribute", colnames(colData(rse_gene_SRP045638)))
 ]
-## Pasar de character a nuemric o factor
+## Pasar de character a numeric o factor
 rse_gene_SRP045638$sra_attribute.age <- as.numeric(rse_gene_SRP045638$sra_attribute.age)
 rse_gene_SRP045638$sra_attribute.disease <- factor(rse_gene_SRP045638$sra_attribute.disease)
 rse_gene_SRP045638$sra_attribute.RIN <- as.numeric(rse_gene_SRP045638$sra_attribute.RIN)
@@ -54,7 +54,7 @@ with(colData(rse_gene_SRP045638), tapply(assigned_gene_prop, prenatal, summary))
 ## Guardemos nuestro objeto entero por si luego cambiamos de opinión
 rse_gene_SRP045638_unfiltered <- rse_gene_SRP045638
 
-## Eliminemos a muestras malas
+## Eliminemos las muestras malas
 hist(rse_gene_SRP045638$assigned_gene_prop)
 
 table(rse_gene_SRP045638$assigned_gene_prop < 0.3)
@@ -65,16 +65,24 @@ rse_gene_SRP045638 <- rse_gene_SRP045638[, rse_gene_SRP045638$assigned_gene_prop
 ## muestras.
 ## Ojo: en un análisis real probablemente haríamos esto con los RPKMs o CPMs
 ## en vez de las cuentas.
-# Apartir de aqi=ui, algo salio mal>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-gene_means <- rowMeans(assay(rse_gene_SRP045638, "counts"))
+# Apartir de aqui, algo salio mal>>>>>cambia "counts" por "raw_counts"
+gene_means <- rowMeans(assay(rse_gene_SRP045638, "raw_counts"))
+summary(gene_means)
+
+## Eliminar genes
+rse_gene_SRP045638 <- rse_gene_SRP045638[gene_means > 0.1, ]
+
+## Dimensiones finales
+dim(rse_gene_SRP045638)
+## Porcentaje de lo retenido
+round(nrow(rse_gene_SRP045638) / nrow(rse_gene_SRP045638_unfiltered) * 100, 2)
+## Deberia ser [1] 73.5, sale [1] 85.6
+
 ## Normalizacion de datos, paquete edgeR
 library("edgeR") # BiocManager::install("edgeR", update = FALSE)
 
 dge <- DGEList(
-  counts = assay(rse_gene_SRP045638, "counts"),
+  counts = assay(rse_gene_SRP045638, "raw_counts"),
   genes = rowData(rse_gene_SRP045638)
 )
 dge <- calcNormFactors(dge)
-
-
-summary(gene_means)

@@ -25,9 +25,9 @@ de_results <- topTable(
 dim(de_results)
 
 head(de_results)
-
+## Genes diferencialmente expresados entre pre y post natal con FDR < 5%
 table(de_results$adj.P.Val < 0.05)
-
+## Visualicemos los resultados estadísticos
 plotMA(eb_results, coef = 2)
 
 volcanoplot(eb_results, coef = 2, highlight = 3, names = de_results$gene_name)
